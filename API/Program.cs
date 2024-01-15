@@ -11,10 +11,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-IConfigurationRoot Configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
-
 // Get the connection string from the environment variable
 var connectionString = Environment.GetEnvironmentVariable("JobTrackerConnection");
 

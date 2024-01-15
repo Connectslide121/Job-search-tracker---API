@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using API.InputModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -18,18 +19,42 @@ namespace API.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetAllJobs() { }
+        public IActionResult GetAllJobs() {
 
-        [HttpGet("job/{Id]")]
-        public IActionResult GetJobById(int jobId) { }
+            List<JobDTO> jobDTOs = _jobService.GetAllJobs();
+            return jobDTOs == null ? NotFound() : Ok(jobDTOs);
+        }
+
+        [HttpGet("job/{Id}")]
+        public IActionResult GetJobById(int jobId) 
+        {
+            JobDTO jobById = _jobService.GetJobById(jobId);
+            return jobById == null ? NotFound() : Ok(jobById);
+        }
 
         [HttpPost("create")]
-        public void CreateJob() { }
+        public void CreateJob(JobInputModelToAdd model) 
+        {
+            Console.WriteLine("create http request received");
+            JobDTO jobDTO = _mappers.MapModelToJobDTOToAdd(model);
+            _jobService.AddJob(jobDTO);
+        }
 
         [HttpPut("update")]
-        public IActionResult UpdateJob() { }
+        public IActionResult UpdateJob(JobInputModelToUpdate model)
+        {
+            JobDTO jobDTO = _mappers.MapModelToJobDTOToUpdate(model);
+            bool jobUpdated = _jobService.UpdateJob(jobDTO);
+
+            return jobUpdated == false ? NotFound() : Ok(jobDTO);
+        }
 
         [HttpDelete("delete/{Id}")]
-        public IActionResult DeleteJob(int jobId) { }
+        public IActionResult DeleteJob(int jobId)
+        {
+            bool jobDeleted = _jobService.DeleteJob(jobId);
+
+            return jobDeleted == false ? NotFound() : Ok(jobId);
+        }
     }
 }
