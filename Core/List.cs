@@ -10,6 +10,8 @@ namespace Core
     public class List
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int ListId { get; set; }
+        public string ListName { get; set; }
         public List<ListItem> ListItems { get; set; }
+        public DateTime CreatedAT { get; set; }
     }
 }

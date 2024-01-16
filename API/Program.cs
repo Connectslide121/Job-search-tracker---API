@@ -1,6 +1,7 @@
 using DataBaseConnection;
 using Microsoft.EntityFrameworkCore;
-using Services;
+using Services.Interfaces;
+using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Get the connection string from the environment variable
-var connectionString = Environment.GetEnvironmentVariable("JobTrackerConnection");
+var connectionString = Environment.GetEnvironmentVariable("ListrConnection");
 
 // Set the MySQL Server Version
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 35));//*********There might be a way to detect automatically
@@ -23,7 +24,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(connectionString, serverVersion));
 
 //Connect IDataService to DataService
-builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IListService, ListService>();
+builder.Services.AddScoped<IListItemService, ListItemService>();
 
 
 var app = builder.Build();

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Services.DTOs
 {
-    public class ListItem
+    public class ListItemDTO
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int ListItemId { get; set; }
+        public int ListItemId { get; set; }
         public int ListId { get; set; }
         public string Title { get; set; }
         public string Information { get; set; }
         public string Status { get; set; }
-        public DateTime CreatedAT { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)] public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace DataBaseConnection
 
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Job> Jobs { get; set; }
+        public DbSet<List> Lists { get; set; }
+        public DbSet<ListItem> ListItems { get; set; }
     }
 }
